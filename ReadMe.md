@@ -1,4 +1,4 @@
-# rclone_script
+# rclone_script for Retroflag GPi
 
 Setup cloud synchronization for the save files on your RetroPie
 
