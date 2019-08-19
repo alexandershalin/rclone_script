@@ -98,9 +98,9 @@ function main_menu ()
 			--title "main menu" \
 			--default-item "${choice}" \
 			--menu "\nWhat do you want to do?" 25 75 20 \
-				1 "Full synchronization of all savefiles and statefiles" \
-				2 "Toggle \"Synchronize saves on start / stop\" (currently ${statusSyncOnStartStop})" \
-				3 "Toggle \"Show notifications on sync\" (currently ${statusShowNotifications})" \
+				1 "Full sync" \
+				2 "Sync on start / stop (currently ${statusSyncOnStartStop})" \
+				3 "Notifications (currently ${statusShowNotifications})" \
 				4 "Set needed Connection (currently \"${statusNeededConnection}\")" \
 				"" ""\
 				9 "uninstall RCLONE_SCRIPT"
