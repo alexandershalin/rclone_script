@@ -99,9 +99,9 @@ function main_menu ()
 			--default-item "${choice}" \
 			--menu "\nWhat do you want to do?" 25 75 20 \
 				1 "Full sync" \
-				2 "Sync on start / stop (currently ${statusSyncOnStartStop})" \
-				3 "Notifications (currently ${statusShowNotifications})" \
-				4 "Set needed Connection (currently \"${statusNeededConnection}\")" \
+				2 "Sync on start/stop: ${statusSyncOnStartStop}" \
+				3 "Notifications: ${statusShowNotifications}" \
+				4 "Connection \"${statusNeededConnection}\"" \
 				"" ""\
 				9 "uninstall RCLONE_SCRIPT"
 			)
