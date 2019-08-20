@@ -388,7 +388,8 @@ function 1dCreateRCLONEremote ()
 		2>&1 > /dev/tty
 		
 	clear
-	rclone config
+#	rclone config
+rclone config create retropie drive config_is_local false
 	
 	1cTestRCLONEremote
 	if [[ $? -eq 1 ]]
