@@ -24,11 +24,16 @@ and follow the instructions.
 
 ## Troubleshooting
 
-Q: Why are my saves not synced on emulator start/stop automatically?
-A: By some reason script calls were not added to runcommand. 
+Why are my saves not synced on emulator start/stop automatically?
 
-Q: To be added.
-
+By some reason script calls were not added to runcommand. Open runcommand-onstart.sh and add:
+```bash
+~/scripts/rclone_script/rclone_script.sh "down" "$1" "$2" "$3" "$4"
+```
+Open runcommand-onend.sh and add:
+```bash
+~/scripts/rclone_script/rclone_script.sh "up" "$1" "$2" "$3" "$4"
+```
 
 ## All the other stuff for original rclone_script below
 
