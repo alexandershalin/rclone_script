@@ -26,14 +26,17 @@ and follow the instructions.
 
 Why are my saves not synced on emulator start/stop automatically?
 
-By some reason script calls were not added to runcommand. Open runcommand-onstart.sh and add:
+By some reason script calls were not added to runcommand. Open /opt/retropie/configs/all/runcommand-onstart.sh and add:
 ```bash
 ~/scripts/rclone_script/rclone_script.sh "down" "$1" "$2" "$3" "$4"
 ```
-Open runcommand-onend.sh and add:
+Open /opt/retropie/configs/all/runcommand-onend.sh and add:
 ```bash
 ~/scripts/rclone_script/rclone_script.sh "up" "$1" "$2" "$3" "$4"
 ```
+Why standalone emulators (gpsp e.g.) still use /home/pi/RetroPie/roms/[SYSTEM]/ folder to store saves?
+
+Script reconfigures only RetroArch to store saves in /home/pi/RetroPie/saves/[SYSTEM]/ folder. You need to configure standalone emulators manually. If it is not possibe to configure saves path in emulator (gpsp e.g.), you should move your saves manually and create symlinks to them.
 
 ## All the other stuff for original rclone_script below
 
