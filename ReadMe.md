@@ -38,6 +38,23 @@ Why standalone emulators (gpsp e.g.) still use /home/pi/RetroPie/roms/[SYSTEM]/ 
 
 Script reconfigures only RetroArch to store saves in /home/pi/RetroPie/saves/[SYSTEM]/ folder. You need to configure standalone emulators manually. If it is not possibe to configure saves path in emulator (gpsp e.g.), you should move your saves manually and create symlinks to them.
 
+## Icon for ES Themes
+
+[https://github.com/alexandershalin/rclone_script/blob/master/rclone.png](https://github.com/alexandershalin/rclone_script/blob/master/rclone.png)
+
+`/opt/retropie/configs/all/emulationstation/gamelists/retropie/gamelist.xml`
+
+```
+<game>
+        <path>./rclone_script-redirect.sh</path>
+        <name>Cloud Sync</name>
+        <desc>Cloud Sync powered by rclone.</desc>
+        <image>/home/pi/RetroPie/retropiemenu/icons/rclone.png</image>
+        <playcount>3</playcount>
+        <lastplayed>20190809T040420</lastplayed>
+    </game>
+```
+
 ## All the other stuff for original rclone_script below
 
 I ***strongly*** recommend reading this page completely before actually doing this! You can also look at these Wiki pages to better understand what this script does:
