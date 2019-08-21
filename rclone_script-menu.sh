@@ -19,7 +19,7 @@ UNDERLINE="\Zu"
 config=~/scripts/rclone_script/rclone_script.ini
 source ${config}
 
-backtitle="RCLONE_SCRIPT menu (https://github.com/Jandalf81/rclone_script)"
+backtitle="Cloud Sync (https://github.com/alexandershalin/rclone_script)"
 
 
 ####################
