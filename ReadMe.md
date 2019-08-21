@@ -16,6 +16,22 @@ chmod 755 ~/scripts/rclone_script/rclone_script-install.sh;
 ```
 and follow the instructions.
 
+## What have been done to make it specific for Retroflag GPi?
+
+1. Removed all cloud providers except Google Drive to make installation process as easy as possible
+2. Menu changed to fit GPi screen
+3. Notifications size changes
+
+## Troubleshooting
+
+Q: Why are my saves not synced on emulator start/stop automatically?
+A: By some reason script calls were not added to runcommand. 
+
+Q: To be added.
+
+
+## All the other stuff for original rclone_script below
+
 I ***strongly*** recommend reading this page completely before actually doing this! You can also look at these Wiki pages to better understand what this script does:
 
 * [Step-by-step guide through the installer](../../wiki/RCLONE_SCRIPT-install)
