@@ -18,7 +18,7 @@ and follow the instructions.
 
 ## What have been done to make it specific for Retroflag GPi?
 
-1. Removed all cloud providers except Google Drive to make installation process as easy as possible
+1. Removed all cloud providers except Google Drive and made installation process as easy as possible
 2. Menu changed to fit GPi screen
 3. Notifications size changes
 
