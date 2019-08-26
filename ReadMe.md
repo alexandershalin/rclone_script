@@ -40,7 +40,7 @@ Script reconfigures only RetroArch to store saves in /home/pi/RetroPie/saves/[SY
 
 ## Icon for ES Themes
 
-[https://github.com/alexandershalin/rclone_script/blob/master/rclone.png](https://github.com/alexandershalin/rclone_script/blob/master/rclone.png)
+[https://github.com/alexandershalin/rclone_script/blob/master/cloudsync.png](https://github.com/alexandershalin/rclone_script/blob/master/cloudsync.png)
 
 `/opt/retropie/configs/all/emulationstation/gamelists/retropie/gamelist.xml`
 
@@ -49,7 +49,7 @@ Script reconfigures only RetroArch to store saves in /home/pi/RetroPie/saves/[SY
         <path>./rclone_script-redirect.sh</path>
         <name>Cloud Sync</name>
         <desc>Cloud Sync powered by rclone.</desc>
-        <image>/home/pi/RetroPie/retropiemenu/icons/rclone.png</image>
+        <image>/home/pi/RetroPie/retropiemenu/icons/cloudsync.png</image>
         <playcount>3</playcount>
         <lastplayed>20190809T040420</lastplayed>
     </game>
