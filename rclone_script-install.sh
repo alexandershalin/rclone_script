@@ -648,6 +648,7 @@ function 4aGetRCLONE_SCRIPT ()
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script.sh --append-output="${logfile}" &&
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-menu.sh --append-output="${logfile}" &&
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-uninstall.sh --append-output="${logfile}" &&
+		wget -N -P ~/RetroPie/retropiemenu/icons ${url}/${branch}/cloudsync.png --append-output="${logfile}" &&
 		
 		# change mod
 		chmod +x ~/scripts/rclone_script/rclone_script.sh >> "${logfile}" &&
@@ -687,6 +688,7 @@ function 4bCreateRCLONE_SCRIPTMenuItem ()
 			--subnode "/gameList/game[last()]" --type elem -n path -v "./rclone_script-redirect.sh" \
 			--subnode "/gameList/game[last()]" --type elem -n name -v "Cloud Sync" \
 			--subnode "/gameList/game[last()]" --type elem -n desc -v "Launches a menu allowing you to start a full sync, configure RCLONE_SCRIPT or even uninstall it" \
+			--subnode "/gameList/game[last()]" --type elem -n image -v "./icons/cloudsync.png" \
 			~/.emulationstation/gamelists/retropie/gamelist.xml
 		
 		if [[ $? -eq 0 ]]
