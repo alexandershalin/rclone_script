@@ -799,6 +799,7 @@ function 5aRUNCOMMAND-ONSTART ()
 			printf "$(date +%FT%T%:z):\t5aRUNCOMMAND-ONSTART\tCALL NOT FOUND\n" >> "${logfile}"
 			
 			# add call
+			sudo chmod 777 /opt/retropie/configs/all/runcommand-onstart.sh # Possible permissions fix
 			printf "\n~/scripts/rclone_script/rclone_script.sh \"down\" \"\$1\" \"\$2\" \"\$3\" \"\$4\"\n" >> /opt/retropie/configs/all/runcommand-onstart.sh	
 
 			printf "$(date +%FT%T%:z):\t5aRUNCOMMAND-ONSTART\tCALL CREATED\n" >> "${logfile}"
@@ -839,6 +840,7 @@ function 5aRUNCOMMAND-ONEND ()
 			printf "$(date +%FT%T%:z):\t5aRUNCOMMAND-ONEND\tCALL NOT FOUND\n" >> "${logfile}"
 			
 			# add call
+			sudo chmod 777 /opt/retropie/configs/all/runcommand-onend.sh # Possible permissions fix
 			printf "\n~/scripts/rclone_script/rclone_script.sh \"up\" \"\$1\" \"\$2\" \"\$3\" \"\$4\"\n" >> /opt/retropie/configs/all/runcommand-onend.sh	
 
 			printf "$(date +%FT%T%:z):\t5aRUNCOMMAND-ONEND\tCALL CREATED\n" >> "${logfile}"
