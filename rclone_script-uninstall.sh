@@ -16,7 +16,7 @@ REVERSE="\Zr"
 UNDERLINE="\Zu"
 
 
-backtitle="RCLONE_SCRIPT uninstaller (https://github.com/alexandershalin/rclone_script)"
+backtitle="Cloud Sync uninstaller (https://github.com/alexandershalin/rclone_script)"
 logfile=~/scripts/rclone_script/rclone_script-uninstall.log
 
 source ~/scripts/rclone_script/rclone_script.ini
@@ -34,7 +34,7 @@ dialog \
 	--no-collapse \
 	--cr-wrap \
 	--yesno \
-		"\nThis script will ${RED}uninstall RCLONE_SCRIPT${NORMAL}. If you do this, your savefiles will no longer be synchronized! All changes made by RCLONE_SCRIPT installer will be reverted. This includes removal of RCLONE, PNGVIEW and IMAGEMAGICK. Also, all configuration changes will be undone. Your local savefiles and savestates will be moved to the ROMS directory again.\nYour remote savefiles and statefiles will ${YELLOW}not${NORMAL} be removed.\n\nAre you sure you wish to continue?" \
+		"\nThis script will ${RED}uninstall Cloud Sync${NORMAL}. If you do this, your savefiles will no longer be synchronized! All changes made by RCLONE_SCRIPT installer will be reverted. This includes removal of RCLONE, PNGVIEW and IMAGEMAGICK. Also, all configuration changes will be undone. Your local savefiles and savestates will be moved to the ROMS directory again.\nYour remote savefiles and statefiles will ${YELLOW}not${NORMAL} be removed.\n\nAre you sure you wish to continue?" \
 	20 90 2>&1 > /dev/tty \
     || exit
 	
