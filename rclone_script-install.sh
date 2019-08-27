@@ -687,7 +687,7 @@ function 4bCreateRCLONE_SCRIPTMenuItem ()
 			--subnode "/gameList" --type elem -n game -v ""  \
 			--subnode "/gameList/game[last()]" --type elem -n path -v "./rclone_script-redirect.sh" \
 			--subnode "/gameList/game[last()]" --type elem -n name -v "Cloud Sync" \
-			--subnode "/gameList/game[last()]" --type elem -n desc -v "Launches a menu allowing you to start a full sync, configure RCLONE_SCRIPT or even uninstall it" \
+			--subnode "/gameList/game[last()]" --type elem -n desc -v "Launches a menu allowing you to start a full sync, configure Cloud Sync or even uninstall it" \
 			--subnode "/gameList/game[last()]" --type elem -n image -v "./icons/cloudsync.png" \
 			~/.emulationstation/gamelists/retropie/gamelist.xml
 		
