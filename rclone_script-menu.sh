@@ -103,7 +103,7 @@ function main_menu ()
 				3 "Notifications: ${statusShowNotifications}" \
 				4 "Connection \"${statusNeededConnection}\"" \
 				"" ""\
-				9 "uninstall RCLONE_SCRIPT"
+				9 "uninstall Cloud Sync"
 			)
 		
 		case "$choice" in
