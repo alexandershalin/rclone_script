@@ -10,7 +10,7 @@ This script will setup different things on your RetroPie in order to automatical
 
 Just install this via
 ```bash
-wget -N -P ~/scripts/rclone_script https://raw.githubusercontent.com/alexandershalin/rclone_script/master/rclone_script-install.sh;
+wget -N -P ~/scripts/rclone_script https://raw.githubusercontent.com/ds17f/rclone_script/master/rclone_script-install.sh;
 chmod 755 ~/scripts/rclone_script/rclone_script-install.sh;
 ~/scripts/rclone_script/rclone_script-install.sh;
 ```
@@ -40,7 +40,7 @@ Script reconfigures only RetroArch to store saves in /home/pi/RetroPie/saves/[SY
 
 ## Icon for ES Themes
 
-[https://github.com/alexandershalin/rclone_script/blob/master/cloudsync.png](https://github.com/alexandershalin/rclone_script/blob/master/cloudsync.png)
+[https://github.com/ds17f/rclone_script/blob/master/cloudsync.png](https://github.com/ds17f/rclone_script/blob/master/cloudsync.png)
 
 `/opt/retropie/configs/all/emulationstation/gamelists/retropie/gamelist.xml`
 
