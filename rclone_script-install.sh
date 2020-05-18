@@ -652,7 +652,7 @@ function 4aGetRCLONE_SCRIPT ()
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-startup.sh --append-output="${logfile}" &&
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/09-rclone-restore.sh --append-output="${logfile}" &&
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-shutdown.sh --append-output="${logfile}" &&
-		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone-savegame.service --append-output="${logfile}" &&
+		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_savegame.service --append-output="${logfile}" &&
 		wget -N -P ~/RetroPie/retropiemenu/icons ${url}/${branch}/cloudsync.png --append-output="${logfile}" &&
 		
 		# change mod
