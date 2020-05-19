@@ -821,11 +821,11 @@ function 4dInstallSystemStartupAndShutdownScripts ()
 			--cr-wrap \
 			--backtitle "${backtitle}" \
 			--title "Game Startup Sync" \
-			--yesno "\nDo you want to sync savegames when an ${YELLOW}emulator starts and stops?${NORMAL}\nHint: You probably want to set this to 'FALSE' because syncing will happen on system shutdown/startup. Games will start/stop faster as a result." 18 40
+			--yesno "\nWould you like to disable sync when an ${YELLOW}emulator starts and stops?${NORMAL}\nHint: You probably want this. Games will start/stop faster and you have enabled syncing on system start and stop." 18 40
 
 		case $? in
-			0) syncOnStartStop="TRUE"  ;;
-			1) syncOnStartStop="FALSE"  ;;
+			0) syncOnStartStop="FALSE"  ;;
+			1) syncOnStartStop="TRUE"  ;;
 			*) syncOnStartStop="FALSE"  ;;
 		esac
 	fi
