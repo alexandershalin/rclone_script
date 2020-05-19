@@ -22,6 +22,15 @@ and follow the instructions.
 2. Menu changed to fit GPi screen
 3. Notifications size changes
 
+## What else has been done
+I didn't like the additional time that it takes to start a game (emulator) with the sync enabled.  I also didn't like that I had to exit a game in order to sync a backup.  I wanted to be able to flip the off switch and go about my business.
+
+To address this I added a feature where the system installs a startup and shutdown script that can be turned on.  The startup script downloads any new saves, and the shutdown script updloads any new ones.  This is done for all emulators.
+
+The startup script has a delay built in.  It runs just before emulationstation is activated but bakes in a 10s sleep.  This allows ES to complete loading without any additional drag on the system and so startup time is unaffected.  After the 10s delay, the sync kicks off.  This is usally around the time that I'm browsing for a game or even loading one up.  I find it to be seamless.
+
+I've made updates to the menu that allow for turning on and off the system start/stop sync.  I suggest that users who wish to use the system start/stop sync disable the normal emulator start/stop sync.  This is suggested during the installation if users turn on system start/stop sync.  There's nothing that prevents users from using both sync events and no troubles are expected if both are turned on.  
+
 ## Troubleshooting
 
 Why are my saves not synced on emulator start/stop automatically?
