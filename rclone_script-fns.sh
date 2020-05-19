@@ -110,7 +110,7 @@ function main_menu ()
 				2 "Sync on emulator start/stop: ${statusSyncOnStartStop}" \
 				3 "Notifications: ${statusShowNotifications}" \
 				4 "Connection \"${statusNeededConnection}\"" \
-				5 "Sync on system start/stop: ${statusSyncOnSystemStartStop}" \}
+				5 "Sync on system start/stop: ${statusSyncOnSystemStartStop}" \
 				"" ""\
 				9 "uninstall Cloud Sync"
 			)
