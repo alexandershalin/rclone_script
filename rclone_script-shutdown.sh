@@ -1,6 +1,5 @@
 #!/bin/bash
 
-logfile=/home/pi/scripts/rclone_script/shutdown.log
 source /home/pi/scripts/rclone_script/rclone_script.ini
 source /home/pi/scripts/rclone_script/rclone_script-fns.sh
 
@@ -10,8 +9,8 @@ source /home/pi/scripts/rclone_script/rclone_script-fns.sh
 
 if [ "${syncOnSystemStartStop}" == "TRUE" ]
 then
-	printf "$(date +%FT%T%:z):syncOnSystemStartStop is enabled, uploading savegames" >> "${logfile}"
+	printf "$(date +%FT%T%:z):syncOnSystemStartStop is enabled, uploading savegames\n" >> "${logfile}"
 	doUpSync >> "${logfile}" 2>&1
 else
-	printf "$(date +%FT%T%:z):syncOnSystemStartStop is disabled, skipping savegame upload" >> "${logfile}"
+	printf "$(date +%FT%T%:z):syncOnSystemStartStop is disabled, skipping savegame upload\n" >> "${logfile}"
 fi
