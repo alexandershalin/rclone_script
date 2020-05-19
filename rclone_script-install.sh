@@ -157,19 +157,20 @@ function initSteps ()
 	steps[14]="	4a. Download RCLONE_SCRIPT files		[ waiting...  ]"
 	steps[15]="	4b. Create RCLONE_SCRIPT menu item		[ waiting...  ]"
 	steps[16]="	4c. Configure RCLONE_SCRIPT			[ waiting...  ]"
-	steps[17]="5. RUNCOMMAND"
-	steps[18]="	5a. Add call to RUNCOMMAND-ONSTART		[ waiting...  ]"
-	steps[19]="	5b. Add call to RUNCOMMAND-ONEND		[ waiting...  ]"
-	steps[20]="6. Local SAVEFILE directory"
-	steps[21]="	6a. Check local base directory			[ waiting...  ]"
-	steps[22]="	6b. Check local <SYSTEM> directories		[ waiting...  ]"
-	steps[23]="7. Remote SAVEFILE directory"
-	steps[24]="	7a. Check remote base directory			[ waiting...  ]"
-	steps[25]="	7b. Check remote <SYSTEM> directories		[ waiting...  ]"
-	steps[26]="8. Configure RETROARCH"
-	steps[27]="	8a. Set local SAVEFILE directories		[ waiting...  ]"
-	steps[28]="9. Finalizing"
-	steps[29]="	9a. Save configuration				[ waiting...  ]"
+	steps[17]="	4d. Install RCLONE_SCRIPT system start/stop util[ waiting...  ]"
+	steps[18]="5. RUNCOMMAND"
+	steps[19]="	5a. Add call to RUNCOMMAND-ONSTART		[ waiting...  ]"
+	steps[20]="	5b. Add call to RUNCOMMAND-ONEND		[ waiting...  ]"
+	steps[21]="6. Local SAVEFILE directory"
+	steps[22]="	6a. Check local base directory			[ waiting...  ]"
+	steps[23]="	6b. Check local <SYSTEM> directories		[ waiting...  ]"
+	steps[24]="7. Remote SAVEFILE directory"
+	steps[25]="	7a. Check remote base directory			[ waiting...  ]"
+	steps[26]="	7b. Check remote <SYSTEM> directories		[ waiting...  ]"
+	steps[27]="8. Configure RETROARCH"
+	steps[28]="	8a. Set local SAVEFILE directories		[ waiting...  ]"
+	steps[29]="9. Finalizing"
+	steps[30]="	9a. Save configuration				[ waiting...  ]"
 }
 
 # Update item of $STEPS() and show updated progress dialog
@@ -627,6 +628,14 @@ function 4RCLONE_SCRIPT ()
 	4cConfigureRCLONE_SCRIPT
 	
 	updateStep "4c" "done" 60
+
+# 4d. Install RCLONE_SCRIPT system start stop
+	updateStep "4d" "in progress" 55
+	
+	4dInstallSystemStartupAndShutdownScripts	
+
+	updateStep "4d" "done" 60
+
 }
 
 # Gets RCLONE_SCRIPT
