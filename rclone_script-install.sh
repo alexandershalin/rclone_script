@@ -767,6 +767,9 @@ function 4cConfigureRCLONE_SCRIPT ()
 		)
 	
 	neededConnection=${choice}
+
+	# by default turn on syncing on game start/stop
+	syncOnStartStop="TRUE"
 	
 	printf "$(date +%FT%T%:z):\t4cConfigureRCLONE_SCRIPT\tDONE\n" >> "${logfile}"
 }
@@ -805,6 +808,26 @@ function 4dInstallSystemStartupAndShutdownScripts ()
 		1) syncOnSystemStartStop="FALSE"  ;;
 		*) syncOnSystemStartStop="FALSE"  ;;
 	esac
+
+	if [ ${syncOnSystemStartStop} == "TRUE" ]
+	then
+		# Ask if they want to disable syncing on games
+		dialog \
+			--stdout \
+			--colors \
+			--no-collapse \
+			--cr-wrap \
+			--backtitle "${backtitle}" \
+			--title "Game Startup Sync" \
+			--yesno "\nDo you want to sync savegames when an ${YELLOW}emulator starts and stops?${NORMAL}\nHint: You probably want to set this to 'FALSE' because syncing will happen on system shutdown/startup. Games will start/stop faster as a result." 18 40
+
+		case $? in
+			0) syncOnStartStop="TRUE"  ;;
+			1) syncOnStartStop="FALSE"  ;;
+			*) syncOnStartStop="FALSE"  ;;
+		esac
+	fi
+
 	
 	printf "$(date +%FT%T%:z):\4dInstallSystemStartupAndShutdownScripts\tDONE\n" >> "${logfile}"
 }
@@ -1220,7 +1243,7 @@ function 9aSaveConfiguration ()
 	echo "remotebasedir=${remotebasedir}" > ~/scripts/rclone_script/rclone_script.ini
 	echo "showNotifications=${shownotifications}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "syncOnSystemStartStop=${syncOnSystemStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
-	echo "syncOnStartStop=\"TRUE\"" >> ~/scripts/rclone_script/rclone_script.ini
+	echo "syncOnStartStop=${syncOnSystemStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "logfile=~/scripts/rclone_script/rclone_script.log" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "neededConnection=${neededConnection}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "debug=0" >> ~/scripts/rclone_script/rclone_script.ini
