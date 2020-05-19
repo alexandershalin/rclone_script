@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=/home/pi/scripts/rclone_script/rclone_script-startup.sh
+ExecStart=/bin/true
 ExecStop=/home/pi/scripts/rclone_script/rclone_script-shutdown.sh
 User=pi
 Group=pi

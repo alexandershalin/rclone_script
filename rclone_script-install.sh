@@ -659,7 +659,6 @@ function 4aGetRCLONE_SCRIPT ()
 		chmod +x ~/scripts/rclone_script/rclone_script.sh >> "${logfile}" &&
 		chmod +x ~/scripts/rclone_script/rclone_script-menu.sh >> "${logfile}" &&
 		chmod +x ~/scripts/rclone_script/rclone_script-startup.sh >> "${logfile}" &&
-		chmod +x ~/scripts/rclone_script/09-rclone-restore.sh >> "${logfile}" &&
 		chmod +x ~/scripts/rclone_script/rclone_script-shutdown.sh >> "${logfile}" &&
 		chmod +x ~/scripts/rclone_script/rclone_script-uninstall.sh >> "${logfile}" &&
 		

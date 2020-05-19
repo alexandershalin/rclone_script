@@ -60,7 +60,14 @@ function getStatusOfParameters ()
 	else
 		statusShowNotifications="${RED}DISABLED${NORMAL}"
 	fi
-	
+
+	if [ "${syncOnSystemStartStop}" == "TRUE" ]
+	then
+		statusSyncOnSystemStartStop="${GREEN}ENABLED${NORMAL}"
+	else
+		statusSyncOnSystemStartStop="${RED}DISABLED${NORMAL}"
+	fi
+		
 	case ${neededConnection} in
 		0) statusNeededConnection="Internet access" ;;
 		1) statusNeededConnection="LAN / WLAN" ;;
@@ -72,6 +79,7 @@ function saveConfig ()
 	echo "remotebasedir=${remotebasedir}" > ${config}
 	echo "showNotifications=${showNotifications}" >> ${config}
 	echo "syncOnStartStop=${syncOnStartStop}" >> ${config}
+	echo "syncOnSystemStartStop=${syncOnSystemStartStop}" >> ${config}
 	echo "logfile=~/scripts/rclone_script/rclone_script.log" >> ${config}
 	echo "neededConnection=${neededConnection}" >> ${config}
 	echo "debug=0" >> ${config}
@@ -99,9 +107,10 @@ function main_menu ()
 			--default-item "${choice}" \
 			--menu "\nWhat do you want to do?" 25 75 20 \
 				1 "Full sync" \
-				2 "Sync on start/stop: ${statusSyncOnStartStop}" \
+				2 "Sync on emulator start/stop: ${statusSyncOnStartStop}" \
 				3 "Notifications: ${statusShowNotifications}" \
 				4 "Connection \"${statusNeededConnection}\"" \
+				5 "Sync on system start/stop: ${statusSyncOnSystemStartStop}" \}
 				"" ""\
 				9 "uninstall Cloud Sync"
 			)
@@ -111,6 +120,7 @@ function main_menu ()
 			2) toggleSyncOnStartStop  ;;
 			3) toggleShowNotifications  ;;
 			4) setNeededConnection ;;
+			5) toggleSyncOnSystemStartStop ;;
 			9) ~/scripts/rclone_script/rclone_script-uninstall.sh  ;;
 			*) break  ;;
 		esac
@@ -220,6 +230,18 @@ function toggleShowNotifications ()
 		showNotifications="FALSE"
 	else
 		showNotifications="TRUE"
+	fi
+	
+	saveConfig
+}
+
+function toggleSyncOnSystemStartStop ()
+{
+	if [ "${syncOnSystemStartStop}" == "TRUE" ]
+	then
+		syncOnSystemStartStop="FALSE"
+	else
+		syncOnSystemStartStop="TRUE"
 	fi
 	
 	saveConfig
