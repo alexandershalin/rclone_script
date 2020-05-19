@@ -762,6 +762,45 @@ function 4cConfigureRCLONE_SCRIPT ()
 	printf "$(date +%FT%T%:z):\t4cConfigureRCLONE_SCRIPT\tDONE\n" >> "${logfile}"
 }
 
+# Installs the system startup and shutdown scripts<F12>
+function 4dInstallSystemStartupAndShutdownScripts ()
+{
+	printf "$(date +%FT%T%:z):\4dInstallSystemStartupAndShutdownScripts\tSTART\n" >> "${logfile}"
+
+	# copy the script which calls the startup into the profile's startup
+	# it is 09 so that it runs BEFORE emulationstation
+	# otherwise, ES prevents it from running as ES runs foreground
+	sudo cp ~/scripts/rclone_scripts/09-rclone-restore.sh /etc/profile.d/
+
+	# copy the systemd service which runs startup but executes at shutdown
+	sudo cp ~/scripts/rclone_scripts/rclone_savegame.service /lib/systemd/system/
+	# install it
+	sudo systemctl enable rclone_savegame
+	# reload systemd
+	sudo systemctl daemon-reload
+	# and make sure the service is running
+	sudo systemctl start rclone_savegame
+	
+	# ask the user if they want the system start/shutdown sync enabled
+	dialog \
+		--stdout \
+		--colors \
+		--no-collapse \
+		--cr-wrap \
+		--backtitle "${backtitle}" \
+		--title "System Startup Sync" \
+		--yesno "\nDo you want to sync savegames when the ${YELLOW}system starts and shuts down?${NORMAL}" 18 40
+		
+	case $? in
+		0) syncOnSystemStartStop="TRUE"  ;;
+		1) syncOnSystemStartStop="FALSE"  ;;
+		*) syncOnSystemStartStop="FALSE"  ;;
+	esac
+	
+	printf "$(date +%FT%T%:z):\4dInstallSystemStartupAndShutdownScripts\tDONE\n" >> "${logfile}"
+}
+
+
 function 5RUNCOMMAND ()
 {
 # 5a. RUNCOMMAND-ONSTART
@@ -1171,6 +1210,7 @@ function 9aSaveConfiguration ()
 	
 	echo "remotebasedir=${remotebasedir}" > ~/scripts/rclone_script/rclone_script.ini
 	echo "showNotifications=${shownotifications}" >> ~/scripts/rclone_script/rclone_script.ini
+	echo "syncOnSystemStartStop=${syncOnSystemStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "syncOnStartStop=\"TRUE\"" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "logfile=~/scripts/rclone_script/rclone_script.log" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "neededConnection=${neededConnection}" >> ~/scripts/rclone_script/rclone_script.ini
