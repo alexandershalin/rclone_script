@@ -511,7 +511,8 @@ function 2cCompilePNGVIEW ()
 	
 		# move binary files
 		sudo mv ~/raspidmx-master/pngview/pngview /usr/bin >> "${logfile}" &&
-		sudo mv ~/raspidmx-master/lib/libraspidmx.so.1 /usr/lib >> "${logfile}" &&
+		# The following line fails and causes crash, the system functions without it
+		#sudo mv ~/raspidmx-master/lib/libraspidmx.so.1 /usr/lib >> "${logfile}" &&
 		sudo chown root:root /usr/bin/pngview >> "${logfile}" &&
 		sudo chmod 755 /usr/bin/pngview >> "${logfile}" &&
 		
