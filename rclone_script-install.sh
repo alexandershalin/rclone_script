@@ -788,11 +788,11 @@ function 4dInstallSystemStartupAndShutdownScripts ()
 	# copy the systemd service which runs startup but executes at shutdown
 	sudo cp ~/scripts/rclone_script/rclone_savegame.service /lib/systemd/system/
 	# install it
-	sudo systemctl enable rclone_savegame
+	sudo systemctl enable rclone_savegame >> "${logfile}" 2>&1
 	# reload systemd
-	sudo systemctl daemon-reload
+	sudo systemctl daemon-reload >> "${logfile}" 2>&1
 	# and make sure the service is running
-	sudo systemctl start rclone_savegame
+	sudo systemctl start rclone_savegame >> "${logfile}" 2>&1
 	
 	# ask the user if they want the system start/shutdown sync enabled
 	dialog \
