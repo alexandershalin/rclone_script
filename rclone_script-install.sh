@@ -504,7 +504,6 @@ function 2cCompilePNGVIEW ()
 	printf "$(date +%FT%T%:z):\t2cCompilePNGVIEW\tSTART\n" >> "${logfile}"
 	
 	{ #try
-		set -x
 		# compile
 		# cd ~/raspidmx-master &&
 		make --directory=~/raspidmx-master >> "${logfile}" &&
@@ -521,7 +520,6 @@ function 2cCompilePNGVIEW ()
 		sudo rm -r ~/raspidmx-master >> "${logfile}" &&
 		
 		printf "$(date +%FT%T%:z):\t2cCompilePNGVIEW\tDONE\n" >> "${logfile}" &&
-		set +x
 	
 		return 0
 	} || { #catch
