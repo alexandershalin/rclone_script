@@ -258,8 +258,11 @@ function uploadSaves ()
 {
 	if [ "${syncOnStartStop}" == "FALSE" ]
 	then
-		showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
-		return
+		if [ "${syncOnSystemStartStop}" == "FALSE" ]
+		then
+			showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+			return
+		fi
 	fi
 
 	log 2 "Stopped ${system}/${romfilename} "
