@@ -107,10 +107,10 @@ function main_menu ()
 			--default-item "${choice}" \
 			--menu "\nWhat do you want to do?" 25 75 20 \
 				1 "Full sync" \
-				2 "Sync on emulator start/stop: ${statusSyncOnStartStop}" \
+				2 "Sync emu start/stop: ${statusSyncOnStartStop}" \
 				3 "Notifications: ${statusShowNotifications}" \
 				4 "Connection \"${statusNeededConnection}\"" \
-				5 "Sync on system start/stop: ${statusSyncOnSystemStartStop}" \
+				5 "Sync sys start/stop: ${statusSyncOnSystemStartStop}" \
 				"" ""\
 				9 "uninstall Cloud Sync"
 			)
