@@ -1244,7 +1244,7 @@ function 9aSaveConfiguration ()
 	echo "remotebasedir=${remotebasedir}" > ~/scripts/rclone_script/rclone_script.ini
 	echo "showNotifications=${shownotifications}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "syncOnSystemStartStop=${syncOnSystemStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
-	echo "syncOnStartStop=${syncOnSystemStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
+	echo "syncOnStartStop=${syncOnStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "logfile=~/scripts/rclone_script/rclone_script.log" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "neededConnection=${neededConnection}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "debug=0" >> ~/scripts/rclone_script/rclone_script.ini
