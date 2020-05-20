@@ -199,8 +199,8 @@ function downloadSaves ()
 		if [ "${syncOnSystemStartStop}" == "FALSE" ]
 		then
 			showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
-			return
 		fi
+		return
 	fi
 
 	log 2 "Started ${system}/${romfilename} "
@@ -261,8 +261,8 @@ function uploadSaves ()
 		if [ "${syncOnSystemStartStop}" == "FALSE" ]
 		then
 			showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
-			return
 		fi
+		return
 	fi
 
 	log 2 "Stopped ${system}/${romfilename} "
