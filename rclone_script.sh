@@ -196,8 +196,11 @@ function downloadSaves ()
 {
 	if [ "${syncOnStartStop}" == "FALSE" ]
 	then
-		showNotification "Synchronization is currently disabled" "red" "" "" "" ""
-		return
+		if [ "${syncOnSystemStartStop}" == "FALSE" ]
+		then
+			showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+			return
+		fi
 	fi
 
 	log 2 "Started ${system}/${romfilename} "
