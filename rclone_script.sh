@@ -196,7 +196,7 @@ function downloadSaves ()
 {
 	if [ "${syncOnStartStop}" == "FALSE" ]
 	then
-		showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+		showNotification "Synchronization is currently disabled" "red" "" "" "" ""
 		return
 	fi
 
