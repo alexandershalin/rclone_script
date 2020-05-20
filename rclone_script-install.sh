@@ -780,13 +780,13 @@ function 4dInstallSystemStartupAndShutdownScripts ()
 {
 	printf "$(date +%FT%T%:z):\4dInstallSystemStartupAndShutdownScripts\tSTART\n" >> "${logfile}"
 
-	# copy the script which calls the startup into the profile's startup
+	# move the script which calls the startup into the profile's startup
 	# it is 09 so that it runs BEFORE emulationstation
 	# otherwise, ES prevents it from running as ES runs foreground
-	sudo cp ~/scripts/rclone_script/09-rclone-restore.sh /etc/profile.d/
+	sudo mv ~/scripts/rclone_script/09-rclone-restore.sh /etc/profile.d/
 
-	# copy the systemd service which runs startup but executes at shutdown
-	sudo cp ~/scripts/rclone_script/rclone_savegame.service /lib/systemd/system/
+	# move the systemd service which runs startup but executes at shutdown
+	sudo mv ~/scripts/rclone_script/rclone_savegame.service /lib/systemd/system/
 	# install it
 	sudo systemctl enable rclone_savegame >> "${logfile}" 2>&1
 	# reload systemd
