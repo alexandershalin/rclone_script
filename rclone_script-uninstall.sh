@@ -406,6 +406,12 @@ function 4RCLONE_SCRIPT ()
 		sudo rm -f /lib/systemd/system/rclone_savegame.service &&
 		# delete the startup script
 		sudo rm -f /etc/profile.d/09-rclone-restore.sh &&
+		# remove the actual local star/stop scripts
+		sudo rm -f ~/scripts/rclone_script/rclone_script-startup.sh >> "${logfile}" &&
+		sudo rm -f ~/scripts/rclone_script/rclone_script-shutdown.sh >> "${logfile}" &&
+		# remove the fns because nobody needs them anymore
+		sudo rm -f ~/scripts/rclone_script/rclone_script-fns.sh >> "${logfile}" &&
+
 		printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tREMOVED\n" >> "${logfile}" &&
 
 		printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tDONE\n" >> "${logfile}"
