@@ -1,0 +1,14 @@
+[Unit]
+Description=Backup savegames on shutdown using rclone
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/home/pi/scripts/rclone_script/rclone_script-shutdown.sh
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target

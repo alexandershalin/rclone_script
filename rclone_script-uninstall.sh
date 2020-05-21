@@ -106,16 +106,17 @@ function initSteps ()
 	steps[8]="4. RCLONE_SCRIPT"
 	steps[9]="	4a. Remove RCLONE_SCRIPT files			[ waiting...  ]"
 	steps[10]="	4b. Remove RCLONE_SCRIPT menu item		[ waiting...  ]"
-	steps[11]="5. RUNCOMMAND"
-	steps[12]="	5a. Remove call from RUNCOMMAND-ONSTART		[ waiting...  ]"
-	steps[13]="	5b. Remove call from RUNCOMMAND-ONEND		[ waiting...  ]"
-	steps[14]="6. Local SAVEFILE directory"
-	steps[15]="	6a. Move savefiles to default			[ waiting...  ]"
-	steps[16]="	6b. Remove local SAVEFILE directory		[ waiting...  ]"
-	steps[17]="7. Configure RETROARCH"
-	steps[18]="	7a. Reset local SAVEFILE directories		[ waiting...  ]"
-	steps[19]="8 Finalizing"
-	steps[20]="	8a. Remove UNINSTALL script			[ waiting...  ]"
+	steps[11]="	4c. Remove RCLONE_SCRIPT start/stop sync	[ waiting...  ]"
+	steps[12]="5. RUNCOMMAND"
+	steps[13]="	5a. Remove call from RUNCOMMAND-ONSTART		[ waiting...  ]"
+	steps[14]="	5b. Remove call from RUNCOMMAND-ONEND		[ waiting...  ]"
+	steps[15]="6. Local SAVEFILE directory"
+	steps[16]="	6a. Move savefiles to default			[ waiting...  ]"
+	steps[17]="	6b. Remove local SAVEFILE directory		[ waiting...  ]"
+	steps[18]="7. Configure RETROARCH"
+	steps[19]="	7a. Reset local SAVEFILE directories		[ waiting...  ]"
+	steps[20]="8 Finalizing"
+	steps[21]="	8a. Remove UNINSTALL script			[ waiting...  ]"
 }
 
 # Update item of $STEPS() and show updated progress dialog
@@ -280,7 +281,8 @@ function 2PNGVIEW ()
 	then
 		{ #try
 			sudo rm /usr/bin/pngview >> "${logfile}" &&
-			sudo rm /usr/lib/libraspidmx.so.1 >> "${logfile}" &&
+			# comment this out because it breaks the uninstall and we've removed it from the install
+			# sudo rm /usr/lib/libraspidmx.so.1 >> "${logfile}" &&
 			printf "$(date +%FT%T%:z):\t2aPNGVIEWbinary\tDONE\n" >> "${logfile}" &&
 			updateStep "2a" "done" 24
 		} || { # catch
@@ -390,6 +392,38 @@ function 4RCLONE_SCRIPT ()
 		2) updateStep "4b" "done" 48  ;;
 	esac
 	
+# 4c. Remove RCLONE_SCRIPT system start/shutdown files
+	printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tSTART\n" >> "${logfile}"
+	updateStep "4c" "in progress" 40
+
+	{ # try
+		# stop/disable the service
+		sudo systemctl stop rclone_savegame >> "${logfile}" 2>&1 &&
+		sudo systemctl disable rclone_savegame >> "${logfile}" 2>&1 &&
+		sudo systemctl daemon-reload rclone_savegame >> "${logfile}" 2>&1 &&
+		printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tDISABLED\n" >> "${logfile}" &&
+		
+		# delete the service from the system
+		sudo rm -f /lib/systemd/system/rclone_savegame.service &&
+		# delete the startup script
+		sudo rm -f /etc/profile.d/09-rclone-restore.sh &&
+		# remove the actual local star/stop scripts
+		sudo rm -f ~/scripts/rclone_script/rclone_script-startup.sh >> "${logfile}" &&
+		sudo rm -f ~/scripts/rclone_script/rclone_script-shutdown.sh >> "${logfile}" &&
+		# remove the fns because nobody needs them anymore
+		sudo rm -f ~/scripts/rclone_script/rclone_script-fns.sh >> "${logfile}" &&
+
+		printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tREMOVED\n" >> "${logfile}" &&
+
+		printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tDONE\n" >> "${logfile}"
+
+		updateStep "4c" "done" 40
+	} || { # catch
+		printf "$(date +%FT%T%:z):\t4cRCLONE_SCRIPTSystemStartShutdown\tERROR\n" >> "${logfile}" &&
+		updateStep "4c" "failed" 32 &&
+		exit
+	}
+
 	printf "$(date +%FT%T%:z):\t4RCLONE_SCRIPT\tDONE\n" >> "${logfile}"
 }
 

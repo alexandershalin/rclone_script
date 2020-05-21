@@ -157,19 +157,20 @@ function initSteps ()
 	steps[14]="	4a. Download RCLONE_SCRIPT files		[ waiting...  ]"
 	steps[15]="	4b. Create RCLONE_SCRIPT menu item		[ waiting...  ]"
 	steps[16]="	4c. Configure RCLONE_SCRIPT			[ waiting...  ]"
-	steps[17]="5. RUNCOMMAND"
-	steps[18]="	5a. Add call to RUNCOMMAND-ONSTART		[ waiting...  ]"
-	steps[19]="	5b. Add call to RUNCOMMAND-ONEND		[ waiting...  ]"
-	steps[20]="6. Local SAVEFILE directory"
-	steps[21]="	6a. Check local base directory			[ waiting...  ]"
-	steps[22]="	6b. Check local <SYSTEM> directories		[ waiting...  ]"
-	steps[23]="7. Remote SAVEFILE directory"
-	steps[24]="	7a. Check remote base directory			[ waiting...  ]"
-	steps[25]="	7b. Check remote <SYSTEM> directories		[ waiting...  ]"
-	steps[26]="8. Configure RETROARCH"
-	steps[27]="	8a. Set local SAVEFILE directories		[ waiting...  ]"
-	steps[28]="9. Finalizing"
-	steps[29]="	9a. Save configuration				[ waiting...  ]"
+	steps[17]="	4d. Install RCLONE_SCRIPT system start/stop util[ waiting...  ]"
+	steps[18]="5. RUNCOMMAND"
+	steps[19]="	5a. Add call to RUNCOMMAND-ONSTART		[ waiting...  ]"
+	steps[20]="	5b. Add call to RUNCOMMAND-ONEND		[ waiting...  ]"
+	steps[21]="6. Local SAVEFILE directory"
+	steps[22]="	6a. Check local base directory			[ waiting...  ]"
+	steps[23]="	6b. Check local <SYSTEM> directories		[ waiting...  ]"
+	steps[24]="7. Remote SAVEFILE directory"
+	steps[25]="	7a. Check remote base directory			[ waiting...  ]"
+	steps[26]="	7b. Check remote <SYSTEM> directories		[ waiting...  ]"
+	steps[27]="8. Configure RETROARCH"
+	steps[28]="	8a. Set local SAVEFILE directories		[ waiting...  ]"
+	steps[29]="9. Finalizing"
+	steps[30]="	9a. Save configuration				[ waiting...  ]"
 }
 
 # Update item of $STEPS() and show updated progress dialog
@@ -509,7 +510,8 @@ function 2cCompilePNGVIEW ()
 	
 		# move binary files
 		sudo mv ~/raspidmx-master/pngview/pngview /usr/bin >> "${logfile}" &&
-		sudo mv ~/raspidmx-master/lib/libraspidmx.so.1 /usr/lib >> "${logfile}" &&
+		# The following line fails and causes crash, the system functions without it
+		#sudo mv ~/raspidmx-master/lib/libraspidmx.so.1 /usr/lib >> "${logfile}" &&
 		sudo chown root:root /usr/bin/pngview >> "${logfile}" &&
 		sudo chmod 755 /usr/bin/pngview >> "${logfile}" &&
 		
@@ -627,6 +629,14 @@ function 4RCLONE_SCRIPT ()
 	4cConfigureRCLONE_SCRIPT
 	
 	updateStep "4c" "done" 60
+
+# 4d. Install RCLONE_SCRIPT system start stop
+	updateStep "4d" "in progress" 55
+	
+	4dInstallSystemStartupAndShutdownScripts	
+
+	updateStep "4d" "done" 60
+
 }
 
 # Gets RCLONE_SCRIPT
@@ -646,13 +656,20 @@ function 4aGetRCLONE_SCRIPT ()
 	{ #try
 		# get script files
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script.sh --append-output="${logfile}" &&
+		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-fns.sh --append-output="${logfile}" &&
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-menu.sh --append-output="${logfile}" &&
 		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-uninstall.sh --append-output="${logfile}" &&
+		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-startup.sh --append-output="${logfile}" &&
+		wget -N -P ~/scripts/rclone_script ${url}/${branch}/09-rclone-restore.sh --append-output="${logfile}" &&
+		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_script-shutdown.sh --append-output="${logfile}" &&
+		wget -N -P ~/scripts/rclone_script ${url}/${branch}/rclone_savegame.service --append-output="${logfile}" &&
 		wget -N -P ~/RetroPie/retropiemenu/icons ${url}/${branch}/cloudsync.png --append-output="${logfile}" &&
 		
 		# change mod
 		chmod +x ~/scripts/rclone_script/rclone_script.sh >> "${logfile}" &&
 		chmod +x ~/scripts/rclone_script/rclone_script-menu.sh >> "${logfile}" &&
+		chmod +x ~/scripts/rclone_script/rclone_script-startup.sh >> "${logfile}" &&
+		chmod +x ~/scripts/rclone_script/rclone_script-shutdown.sh >> "${logfile}" &&
 		chmod +x ~/scripts/rclone_script/rclone_script-uninstall.sh >> "${logfile}" &&
 		
 		printf "$(date +%FT%T%:z):\t4aGetRCLONE_SCRIPT\tDONE\n" >> "${logfile}" &&
@@ -751,9 +768,71 @@ function 4cConfigureRCLONE_SCRIPT ()
 		)
 	
 	neededConnection=${choice}
+
+	# by default turn on syncing on game start/stop
+	syncOnStartStop="TRUE"
 	
 	printf "$(date +%FT%T%:z):\t4cConfigureRCLONE_SCRIPT\tDONE\n" >> "${logfile}"
 }
+
+# Installs the system startup and shutdown scripts<F12>
+function 4dInstallSystemStartupAndShutdownScripts ()
+{
+	printf "$(date +%FT%T%:z):\4dInstallSystemStartupAndShutdownScripts\tSTART\n" >> "${logfile}"
+
+	# move the script which calls the startup into the profile's startup
+	# it is 09 so that it runs BEFORE emulationstation
+	# otherwise, ES prevents it from running as ES runs foreground
+	sudo mv ~/scripts/rclone_script/09-rclone-restore.sh /etc/profile.d/
+
+	# move the systemd service which runs startup but executes at shutdown
+	sudo mv ~/scripts/rclone_script/rclone_savegame.service /lib/systemd/system/
+	# install it
+	sudo systemctl enable rclone_savegame >> "${logfile}" 2>&1
+	# reload systemd
+	sudo systemctl daemon-reload >> "${logfile}" 2>&1
+	# and make sure the service is running
+	sudo systemctl start rclone_savegame >> "${logfile}" 2>&1
+	
+	# ask the user if they want the system start/shutdown sync enabled
+	dialog \
+		--stdout \
+		--colors \
+		--no-collapse \
+		--cr-wrap \
+		--backtitle "${backtitle}" \
+		--title "System Startup Sync" \
+		--yesno "\nDo you want to ${RED}enable savegames sync${NORMAL} when the ${YELLOW}system starts and shuts down?${NORMAL}" 18 40
+		
+	case $? in
+		0) syncOnSystemStartStop="TRUE"  ;;
+		1) syncOnSystemStartStop="FALSE"  ;;
+		*) syncOnSystemStartStop="FALSE"  ;;
+	esac
+
+	if [ ${syncOnSystemStartStop} == "TRUE" ]
+	then
+		# Ask if they want to disable syncing on games
+		dialog \
+			--stdout \
+			--colors \
+			--no-collapse \
+			--cr-wrap \
+			--backtitle "${backtitle}" \
+			--title "Game Startup Sync" \
+			--yesno "\nWould you like to ${RED}disable savegame sync${NORMAL} when an ${YELLOW}emulator starts and stops?${NORMAL}\nHint: You probably want this. Games will start/stop faster and you have enabled syncing on system start and stop." 18 40
+
+		case $? in
+			0) syncOnStartStop="FALSE"  ;;
+			1) syncOnStartStop="TRUE"  ;;
+			*) syncOnStartStop="FALSE"  ;;
+		esac
+	fi
+
+	
+	printf "$(date +%FT%T%:z):\4dInstallSystemStartupAndShutdownScripts\tDONE\n" >> "${logfile}"
+}
+
 
 function 5RUNCOMMAND ()
 {
@@ -1164,7 +1243,8 @@ function 9aSaveConfiguration ()
 	
 	echo "remotebasedir=${remotebasedir}" > ~/scripts/rclone_script/rclone_script.ini
 	echo "showNotifications=${shownotifications}" >> ~/scripts/rclone_script/rclone_script.ini
-	echo "syncOnStartStop=\"TRUE\"" >> ~/scripts/rclone_script/rclone_script.ini
+	echo "syncOnSystemStartStop=${syncOnSystemStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
+	echo "syncOnStartStop=${syncOnStartStop}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "logfile=~/scripts/rclone_script/rclone_script.log" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "neededConnection=${neededConnection}" >> ~/scripts/rclone_script/rclone_script.ini
 	echo "debug=0" >> ~/scripts/rclone_script/rclone_script.ini

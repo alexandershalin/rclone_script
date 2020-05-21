@@ -196,7 +196,10 @@ function downloadSaves ()
 {
 	if [ "${syncOnStartStop}" == "FALSE" ]
 	then
-		showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+		if [ "${syncOnSystemStartStop}" == "FALSE" ]
+		then
+			showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+		fi
 		return
 	fi
 
@@ -255,7 +258,10 @@ function uploadSaves ()
 {
 	if [ "${syncOnStartStop}" == "FALSE" ]
 	then
-		showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+		if [ "${syncOnSystemStartStop}" == "FALSE" ]
+		then
+			showNotification "Synchronization is currently disabled" "red" "" "" "" "forced"
+		fi
 		return
 	fi
 
